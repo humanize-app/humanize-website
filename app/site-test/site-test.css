@@ -1,0 +1,60 @@
+/*
+ * Scoped styles for the /site-test stealth landing page.
+ * Ported 1:1 from the designer's static build (Vite + Tailwind v4).
+ * Everything is scoped under .stealth-root so it can't leak into the
+ * marketing site, which uses its own tokens (IBM Plex, globals.css).
+ */
+
+.stealth-root {
+  --cream: #faf7f2;
+  --ink: #1a1714;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+.stealth-root *,
+.stealth-root *::before,
+.stealth-root *::after {
+  box-sizing: border-box;
+}
+
+/* Marquee track scrolls exactly one half-width so the duplicated content loops
+   seamlessly (the track holds two identical halves). */
+@keyframes stealth-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scroll-reveal: elements start lowered + transparent, then settle once the
+   IntersectionObserver adds .is-visible. Mirrors the original framer-motion
+   whileInView reveal. */
+.stealth-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stealth-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stealth-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .stealth-marquee-track {
+    animation: none !important;
+  }
+}

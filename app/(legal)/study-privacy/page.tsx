@@ -18,7 +18,7 @@ export default function StudyPrivacyPage() {
     <LegalPage>
       <h1>Study Privacy Policy</h1>
       <LegalUpdated>
-        <strong>Last Updated: February 19, 2026</strong>
+        <strong>Last Updated: June 22, 2026</strong>
       </LegalUpdated>
       <p>
         This policy applies to individuals who participate in a Humanize

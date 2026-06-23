@@ -18,7 +18,7 @@ export default function StudyPrivacyPage() {
     <LegalPage>
       <h1>Study Privacy Policy</h1>
       <LegalUpdated>
-        <strong>Last Updated: February 19, 2026</strong>
+        <strong>Last Updated: June 22, 2026</strong>
       </LegalUpdated>
       <p>
         This policy applies to individuals who participate in a Humanize
@@ -33,14 +33,14 @@ export default function StudyPrivacyPage() {
         <ul>
           <li>
             <strong>Your Study is moderated by an AI, not a human.</strong> The
-            moderator you interact with (&ldquo;Peggy&rdquo;) is an artificial
-            intelligence system. There is no human moderator present during the
-            session.
+            moderator you interact with is an artificial intelligence system.
+            There is no human moderator present during the session.
           </li>
           <li>
-            <strong>Your session will be recorded.</strong> We collect your
-            audio and/or video responses, which are transcribed and analyzed
-            using AI technology.
+            <strong>Your session will be recorded and analyzed.</strong> We
+            collect your audio and/or video responses, which are transcribed and
+            analyzed using AI. The analysis includes emotional signals inferred
+            from your words, your tone of voice, and your facial expressions.
           </li>
           <li>
             <strong>Your Study may be a group session.</strong> If so, other
@@ -151,8 +151,8 @@ export default function StudyPrivacyPage() {
         </li>
         <li>
           <strong>Service Improvement:</strong> Use aggregated, de-identified,
-          or anonymized data to improve our platform&rsquo;s functionality, AI
-          moderation capabilities, and overall research quality.
+          or anonymized data to improve our platform&rsquo;s functionality and
+          overall research quality.
         </li>
         <li>
           <strong>Legal Compliance:</strong> Comply with applicable laws,
@@ -197,8 +197,8 @@ export default function StudyPrivacyPage() {
       <h2>5. AI Processing Disclosure</h2>
       <p>
         Your Study is moderated by an artificial intelligence system, not a
-        human moderator. The AI moderator (&ldquo;Peggy&rdquo;) facilitates the
-        conversation, asks questions, and guides the discussion.
+        human moderator. The AI moderator facilitates the conversation, asks
+        questions, and guides the discussion.
       </p>
       <p>Your responses undergo the following AI processing:</p>
       <ol>
@@ -211,8 +211,12 @@ export default function StudyPrivacyPage() {
           text using AI-powered speech recognition.
         </li>
         <li>
-          <strong>Analysis</strong> — AI systems analyze transcripts to extract
-          themes, patterns, emotional signals, and research insights.
+          <strong>Analysis</strong> — AI systems analyze your responses,
+          including the transcript of what you say, your tone of voice, and your
+          facial expressions, to extract themes, patterns, and emotional
+          signals, and to generate research insights. These emotional signals
+          are approximate indicators for researchers to interpret, not
+          definitive measurements.
         </li>
         <li>
           <strong>Insight delivery</strong> — structured analysis is delivered
@@ -222,7 +226,8 @@ export default function StudyPrivacyPage() {
       <p>
         No fully automated decisions with legal or similarly significant
         effects are made about you based on your Study responses. The AI
-        processing is used solely to generate qualitative research insights.
+        processing is used solely to generate qualitative research insights, and
+        we do not use your responses to train AI models.
       </p>
       <p>
         By participating in the Study, you consent to this AI-mediated

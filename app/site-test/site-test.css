@@ -8,11 +8,34 @@
 .stealth-root {
   --cream: #faf7f2;
   --ink: #1a1714;
+  position: relative;
+  z-index: 0;
   background-color: var(--cream);
   color: var(--ink);
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
+}
+
+/* Full-page watercolor backdrop. An absolutely-positioned pseudo-element spans
+   the whole document (not just the viewport), anchored to the top, so the image
+   scrolls *with* the page — you travel down through it as you scroll, with the
+   top of the image sitting at the top of the first view. A 25% white layer is
+   stacked over the image to soften it. z-index: -1 sits it above the
+   .stealth-root background-color but behind all content. */
+.stealth-root::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.35)
+    ),
+    url("/site-test/background.png");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 
 .stealth-root *,
@@ -21,14 +44,33 @@
   box-sizing: border-box;
 }
 
-/* Marquee track scrolls exactly one half-width so the duplicated content loops
-   seamlessly (the track holds two identical halves). */
-@keyframes stealth-marquee {
-  0% {
-    transform: translateX(0);
+/* Tailwind's padding/margin utilities are dead on this site: globals.css ships
+   an unlayered `* { margin: 0; padding: 0 }` reset, which beats Tailwind's
+   layered utilities regardless of specificity. So layout spacing here is set
+   in scoped CSS (or inline styles) instead of utility classes. */
+
+/* Sticky header inner — centered, with horizontal gutters. */
+.stealth-root .stealth-header-inner {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Manifesto card — centered, with padding that tightens on small screens. */
+.stealth-root .stealth-card {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px 28px 48px;
+}
+
+@media (min-width: 640px) {
+  .stealth-root .stealth-header-inner {
+    padding-left: 24px;
+    padding-right: 24px;
   }
-  100% {
-    transform: translateX(-50%);
+  .stealth-root .stealth-card {
+    padding: 48px 56px 56px;
   }
 }
 
@@ -53,8 +95,5 @@
     opacity: 1;
     transform: none;
     transition: none;
-  }
-  .stealth-marquee-track {
-    animation: none !important;
   }
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const CREAM = "rgb(250, 247, 242)";
 const INK = "#1a1714";
 
 const MANIFESTO: string[] = [
@@ -17,11 +16,10 @@ const MANIFESTO: string[] = [
   "This is the end of guessing what people want. The conversations are already happening naturally. Now you finally get to be a part of them.",
 ];
 
-/** Marquee phrase repeated enough times to fill two full track-widths. */
-const MARQUEE_ITEMS = Array.from({ length: 24 });
-
 export function StealthSite() {
   const [headerVisible, setHeaderVisible] = useState(false);
+  // Each hover over the header logo turns it another quarter-turn.
+  const [logoSpin, setLogoSpin] = useState(0);
 
   // Header fades in once the hero has been mostly scrolled past.
   useEffect(() => {
@@ -53,7 +51,7 @@ export function StealthSite() {
           transition: "opacity 0.4s ease, transform 0.4s ease",
         }}
       >
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <div className="stealth-header-inner flex h-16 max-w-6xl items-center justify-between">
           <a href="#" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -66,7 +64,7 @@ export function StealthSite() {
             <a
               href="#contact"
               style={{ fontSize: 14, color: "rgba(26, 23, 20, 0.65)" }}
-              className="transition-colors hover:text-[#1a1714]"
+              className="hidden transition-colors hover:text-[#1a1714] sm:inline"
             >
               Log in
             </a>
@@ -87,151 +85,82 @@ export function StealthSite() {
         </div>
       </header>
 
-      {/* Hero — full-viewport looping video with a top gradient scrim */}
+      {/* Hero — full-viewport cream fold, headline sitting a touch above center */}
       <div
+        className="flex flex-col items-center justify-center px-6 text-center"
         style={{
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
-          position: "relative",
+          width: "100%",
+          minHeight: "78vh",
+          paddingBottom: "4vh",
         }}
       >
-        <div className="relative h-full w-full select-none">
-          <video
-            src="/site-test/hero.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 h-full w-full"
-            style={{ objectFit: "cover" }}
-          />
-          <div
-            className="absolute inset-x-0 top-0 z-20 pointer-events-none"
-            style={{
-              height: "62%",
-              background:
-                "linear-gradient(rgb(250, 247, 242) 0%, rgb(250, 247, 242) 15%, rgba(250, 247, 242, 0.82) 44%, transparent 100%)",
-            }}
-          >
-            <div className="flex h-full flex-col items-center justify-start px-6 pt-20 text-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Humanize"
-                src="/site-test/logo.svg"
-                className="pointer-events-auto mb-4"
-                style={{ width: 64, height: 64, opacity: 0.6 }}
-              />
-              <h1
-                style={{
-                  color: INK,
-                  fontWeight: 400,
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                  fontSize: "clamp(1.2rem, 2.2vw, 2rem)",
-                  whiteSpace: "nowrap",
-                  textShadow:
-                    "rgba(250, 247, 242, 0.9) 0px 1px 12px, rgba(250, 247, 242, 0.7) 0px 2px 24px",
-                }}
-              >
-                AI doesn&apos;t buy your products.{" "}
-                <strong style={{ fontWeight: 600 }}>People do.</strong>
-              </h1>
-              <p
-                className="mt-3"
-                style={{
-                  color: "rgba(26, 23, 20, 0.55)",
-                  fontWeight: 400,
-                  fontSize: "clamp(1rem, 1.6vw, 1.25rem)",
-                  textShadow:
-                    "rgba(250, 247, 242, 0.95) 0px 1px 8px, rgba(250, 247, 242, 0.8) 0px 2px 16px",
-                }}
-              >
-                So we built the only way to actually listen to them.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Marquee strip */}
-      <div
-        style={{
-          background: CREAM,
-          overflow: "hidden",
-          height: 38,
-          display: "flex",
-          alignItems: "center",
-          flexShrink: 0,
-          borderTop: "1px solid rgba(26, 23, 20, 0.07)",
-          borderBottom: "1px solid rgba(26, 23, 20, 0.07)",
-        }}
-      >
+        {/* Soft cream halo lifts the text off the busy watercolor backdrop. */}
         <div
-          className="stealth-marquee-track"
+          className="flex flex-col items-center"
           style={{
-            display: "flex",
-            whiteSpace: "nowrap",
-            animation: "stealth-marquee 40s linear infinite",
+            padding: "40px 56px",
+            background:
+              "radial-gradient(60% 58% at 50% 50%, rgba(250, 247, 242, 0.72) 0%, rgba(250, 247, 242, 0.42) 52%, rgba(250, 247, 242, 0) 78%)",
           }}
         >
-          {MARQUEE_ITEMS.map((_, i) => (
-            <span
-              key={i}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 18,
-                paddingRight: 18,
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 400,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "rgba(26, 23, 20, 0.35)",
-                }}
-              >
-                Early access only
-              </span>
-              <span style={{ fontSize: 8, color: "rgba(26, 23, 20, 0.15)" }}>
-                ✦
-              </span>
-            </span>
-          ))}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt="Humanize"
+            src="/site-test/logo.svg"
+            className="mb-5"
+          onMouseEnter={() => setLogoSpin((s) => s + 90)}
+          style={{
+            width: 64,
+            height: 64,
+            opacity: 0.6,
+            cursor: "pointer",
+            transform: `rotate(${logoSpin}deg)`,
+            transformOrigin: "center",
+            transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        />
+        <h1
+          style={{
+            color: INK,
+            fontWeight: 400,
+            letterSpacing: "-0.025em",
+            lineHeight: 1.15,
+            fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+            textWrap: "balance",
+            textShadow:
+              "rgba(250, 247, 242, 0.9) 0px 1px 14px, rgba(250, 247, 242, 0.7) 0px 2px 28px",
+          }}
+        >
+          AI doesn&apos;t buy your products.{" "}
+          <strong style={{ fontWeight: 600 }}>People do.</strong>
+        </h1>
+        <p
+          className="mt-4"
+          style={{
+            color: "rgba(26, 23, 20, 0.62)",
+            fontWeight: 400,
+            fontSize: "clamp(1rem, 1.8vw, 1.25rem)",
+            textShadow:
+              "rgba(250, 247, 242, 0.95) 0px 1px 10px, rgba(250, 247, 242, 0.8) 0px 2px 20px",
+          }}
+        >
+          So we built the only way to actually listen to them.
+        </p>
         </div>
       </div>
 
-      {/* Manifesto — watercolor backdrop with a frosted glass card */}
-      <div style={{ position: "relative" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt=""
-          src="/site-test/bottom.png"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-            zIndex: 0,
-          }}
-        />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <section style={{ padding: "64px 24px 96px" }}>
+      {/* Manifesto — centered card on the cream backdrop */}
+      <div>
+        <section style={{ padding: "0 24px 96px" }}>
             <div
-              className="mx-auto"
+              className="stealth-card"
               style={{
                 maxWidth: "48rem",
                 borderRadius: 24,
-                padding: "48px 56px 56px",
-                background: "rgba(255, 255, 255, 0.93)",
-                backdropFilter: "blur(20px) saturate(1.6)",
-                WebkitBackdropFilter: "blur(20px) saturate(1.6)",
-                border: "1px solid rgba(255, 255, 255, 0.85)",
+                background: "rgba(255, 255, 255, 0.62)",
+                backdropFilter: "blur(40px) saturate(1.8)",
+                WebkitBackdropFilter: "blur(40px) saturate(1.8)",
+                border: "1px solid rgba(255, 255, 255, 0.7)",
                 boxShadow:
                   "rgba(30, 28, 24, 0.13) 0px 8px 40px, rgba(30, 28, 24, 0.06) 0px 1px 2px",
               }}
@@ -316,28 +245,35 @@ export function StealthSite() {
             </div>
           </section>
 
-          {/* Footer */}
-          <footer style={{ padding: "24px 32px 28px" }}>
+          {/* Footer — full-width bar */}
+          <footer
+            style={{
+              borderTop: "1px solid rgba(255, 255, 255, 0.7)",
+              padding: "20px 32px 28px",
+              background: "rgba(255, 255, 255, 0.55)",
+              backdropFilter: "blur(24px) saturate(1.6)",
+              WebkitBackdropFilter: "blur(24px) saturate(1.6)",
+            }}
+          >
             <div
-              className="mx-auto flex flex-col items-center justify-between gap-3 sm:flex-row"
+              className="flex flex-col items-center justify-between gap-3 sm:flex-row"
               style={{
-                maxWidth: "72rem",
-                paddingTop: 20,
-                borderTop: "1px solid rgba(26, 23, 20, 0.12)",
+                width: "100%",
                 fontFamily:
                   "var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
                 letterSpacing: "0.04em",
+                textShadow: "rgba(250, 247, 242, 0.7) 0px 1px 6px",
               }}
             >
-              <span style={{ fontSize: 13, color: "rgba(26, 23, 20, 0.55)" }}>
+              <span style={{ fontSize: 13, color: "rgba(26, 23, 20, 0.72)" }}>
                 © 2026 Humanize
               </span>
-              <span style={{ fontSize: 12, color: "rgba(26, 23, 20, 0.45)" }}>
+              <span style={{ fontSize: 12, color: "rgba(26, 23, 20, 0.62)" }}>
                 SOC 2 Type II in progress
               </span>
               <nav
                 className="flex gap-7"
-                style={{ fontSize: 13, color: "rgba(26, 23, 20, 0.55)" }}
+                style={{ fontSize: 13, color: "rgba(26, 23, 20, 0.72)" }}
               >
                 <a href="#" className="transition-colors hover:text-[#1a1714]">
                   Privacy
@@ -351,7 +287,6 @@ export function StealthSite() {
               </nav>
             </div>
           </footer>
-        </div>
       </div>
     </div>
   );

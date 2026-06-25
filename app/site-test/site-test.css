@@ -26,7 +26,10 @@
 .stealth-root::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 4rem; /* clears the 64px sticky nav so the image starts below it */
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: -1;
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.35),
@@ -57,11 +60,20 @@
   padding-right: 20px;
 }
 
-/* Manifesto card — centered, with padding that tightens on small screens. */
+/* Manifesto card — centered, with padding that tightens on small screens.
+   Top padding matches the bottom so the gap above "What we believe" mirrors
+   the gap below the signature. */
 .stealth-root .stealth-card {
   margin-left: auto;
   margin-right: auto;
-  padding: 40px 28px 48px;
+  padding: 48px 28px 48px;
+}
+
+/* Hero logo lockup — stacks the spinnable icon above the wordmark on small
+   screens (best use of vertical space), sits side-by-side from 640px up. */
+.stealth-root .stealth-hero-lockup {
+  flex-direction: column;
+  gap: 12px;
 }
 
 @media (min-width: 640px) {
@@ -70,7 +82,11 @@
     padding-right: 24px;
   }
   .stealth-root .stealth-card {
-    padding: 48px 56px 56px;
+    padding: 56px 56px 56px;
+  }
+  .stealth-root .stealth-hero-lockup {
+    flex-direction: row;
+    gap: 18px;
   }
 }
 

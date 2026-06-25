@@ -1,0 +1,115 @@
+/*
+ * Scoped styles for the /site-test stealth landing page.
+ * Ported 1:1 from the designer's static build (Vite + Tailwind v4).
+ * Everything is scoped under .stealth-root so it can't leak into the
+ * marketing site, which uses its own tokens (IBM Plex, globals.css).
+ */
+
+.stealth-root {
+  --cream: #faf7f2;
+  --ink: #1a1714;
+  position: relative;
+  z-index: 0;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+/* Full-page watercolor backdrop. An absolutely-positioned pseudo-element spans
+   the whole document (not just the viewport), anchored to the top, so the image
+   scrolls *with* the page — you travel down through it as you scroll, with the
+   top of the image sitting at the top of the first view. A 25% white layer is
+   stacked over the image to soften it. z-index: -1 sits it above the
+   .stealth-root background-color but behind all content. */
+.stealth-root::before {
+  content: "";
+  position: absolute;
+  top: 4rem; /* clears the 64px sticky nav so the image starts below it */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.35)
+    ),
+    url("/site-test/background.png");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+.stealth-root *,
+.stealth-root *::before,
+.stealth-root *::after {
+  box-sizing: border-box;
+}
+
+/* Tailwind's padding/margin utilities are dead on this site: globals.css ships
+   an unlayered `* { margin: 0; padding: 0 }` reset, which beats Tailwind's
+   layered utilities regardless of specificity. So layout spacing here is set
+   in scoped CSS (or inline styles) instead of utility classes. */
+
+/* Sticky header inner — centered, with horizontal gutters. */
+.stealth-root .stealth-header-inner {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Manifesto card — centered, with padding that tightens on small screens.
+   Top padding matches the bottom so the gap above "What we believe" mirrors
+   the gap below the signature. */
+.stealth-root .stealth-card {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 48px 28px 48px;
+}
+
+/* Hero logo lockup — stacks the spinnable icon above the wordmark on small
+   screens (best use of vertical space), sits side-by-side from 640px up. */
+.stealth-root .stealth-hero-lockup {
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .stealth-root .stealth-header-inner {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .stealth-root .stealth-card {
+    padding: 56px 56px 56px;
+  }
+  .stealth-root .stealth-hero-lockup {
+    flex-direction: row;
+    gap: 18px;
+  }
+}
+
+/* Scroll-reveal: elements start lowered + transparent, then settle once the
+   IntersectionObserver adds .is-visible. Mirrors the original framer-motion
+   whileInView reveal. */
+.stealth-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stealth-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stealth-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
